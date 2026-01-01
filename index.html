@@ -136,6 +136,12 @@
       object-fit: cover;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .photos img:hover {
+      transform: scale(1.05);
     }
   </style>
 </head>
@@ -153,7 +159,10 @@
       <h1>BRO, IS FINALLY MY GIRLFRIEND ❤️</h1>
       <p>I already asked permission from Sir Leonard 🥹</p>
       <div class="photos">
-        <img src="evidence.jpg">
+        <!-- Updated: image opens in a new tab, works on GitHub Pages -->
+        <a href="images/evidence.jpg" target="_blank">
+          <img src="images/evidence.jpg" alt="Evidence Photo">
+        </a>
       </div>
     </div>
   </div>
@@ -178,6 +187,4 @@
   </script>
 
 </body>
-
 </html>
-
