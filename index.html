@@ -65,28 +65,13 @@
       border-radius: 50%;
     }
 
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
-
-    .heart::after {
-      left: -10px;
-      top: 0;
-    }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
 
     @keyframes float {
-      0% {
-        transform: translateY(100vh) rotate(45deg);
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-10vh) rotate(45deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
     }
 
     /* POPUP */
@@ -137,12 +122,40 @@
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: transform 0.3s ease;
     }
 
     .photos img:hover {
       transform: scale(1.05);
     }
+
+    /* Fullscreen zoom overlay */
+    #zoom-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    #zoom-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
   </style>
 </head>
 <body>
@@ -159,12 +172,15 @@
       <h1>BRO, IS FINALLY MY GIRLFRIEND ❤️</h1>
       <p>I already asked permission from Sir Leonard 🥹</p>
       <div class="photos">
-        <!-- Updated: image opens in a new tab, works on GitHub Pages -->
-        <a href="evidence.jpg" target="_blank">
-          <img src="evidence.jpg" alt="Evidence Photo">
-        </a>
+        <!-- Image directly in root, click to zoom -->
+        <img id="popup-image" src="evidence.jpg" alt="Evidence Photo">
       </div>
     </div>
+  </div>
+
+  <!-- Fullscreen zoom overlay -->
+  <div id="zoom-overlay" onclick="closeZoom()">
+    <img id="zoomed-image" src="">
   </div>
 
   <!-- Hearts -->
@@ -184,8 +200,22 @@
     function showPopup() {
       document.getElementById('popup').style.display = 'flex';
     }
+
+    // Zoom image inside same page
+    const popupImage = document.getElementById('popup-image');
+    const zoomOverlay = document.getElementById('zoom-overlay');
+    const zoomedImage = document.getElementById('zoomed-image');
+
+    popupImage.addEventListener('click', () => {
+      zoomedImage.src = popupImage.src;
+      zoomOverlay.style.display = 'flex';
+    });
+
+    function closeZoom() {
+      zoomOverlay.style.display = 'none';
+    }
+
   </script>
 
 </body>
 </html>
-
